@@ -44,7 +44,7 @@ def generate_yaml_frontmatter(
     frontmatter = (
         "---\n"
         + "date: "
-        + intermediate_representation["date"]
+        + str(intermediate_representation["date"])
         + "\n"
         + f"tags: {generate_yaml_tags(intermediate_representation['tags'])}\n"
     )

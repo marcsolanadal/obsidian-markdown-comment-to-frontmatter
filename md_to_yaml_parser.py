@@ -32,17 +32,19 @@ def parse(input: str) -> dict[str, Union[str, Iterable[str]]]:
     return parsed_input
 
 
-def generate_tags(tags: Iterable[str]) -> str:
+def generate_yaml_tags(tags: Iterable[str]) -> str:
     return f"[{' '.join(tags)}]"
 
 
-def generate_frontmatter(parsed_input: dict[str, Union[str, Iterable[str]]]) -> str:
+def generate_yaml_frontmatter(
+    parsed_input: dict[str, Union[str, Iterable[str]]]
+) -> str:
     frontmatter = (
         "---\n"
         + "date: "
         + parsed_input["date"]
         + "\n"
-        + f"tags: {generate_tags(parsed_input['tags'])}\n"
+        + f"tags: {generate_yaml_tags(parsed_input['tags'])}\n"
     )
 
     if "identity/employee" in parsed_input["tags"]:
@@ -52,6 +54,6 @@ def generate_frontmatter(parsed_input: dict[str, Union[str, Iterable[str]]]) -> 
     return frontmatter
 
 
-def generate(input: str) -> str:
+def parse_md_to_yaml_frontmatter(input: str) -> str:
     parsed_input = parse(input)
-    return generate_frontmatter(parsed_input)
+    return generate_yaml_frontmatter(parsed_input)

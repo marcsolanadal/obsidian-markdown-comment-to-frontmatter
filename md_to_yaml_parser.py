@@ -17,19 +17,21 @@ def parse_references(input: Iterable[str]) -> Iterable[str]:
     references = []
     for line in input:
         if line.startswith("- "):
+            print(line)
             references.append(line.split(" ")[1])
     return references
 
 
-def parse(input: str) -> dict[str, Union[str, Iterable[str]]]:
-    input_lines = input.strip().split("\n")
-
-    parsed_input = {
+def md_to_intermediate_representation(
+    md_input: str,
+) -> dict[str, Union[str, Iterable[str]]]:
+    input_lines = md_input.strip().split("\n")
+    intermediate_representation = {
         "date": parse_date(input_lines[1]),
         "tags": parse_tags(input_lines[2]),
-        "references": parse_references(input),
+        "references": parse_references(input_lines),
     }
-    return parsed_input
+    return intermediate_representation
 
 
 def generate_yaml_tags(tags: Iterable[str]) -> str:
@@ -37,17 +39,17 @@ def generate_yaml_tags(tags: Iterable[str]) -> str:
 
 
 def generate_yaml_frontmatter(
-    parsed_input: dict[str, Union[str, Iterable[str]]]
+    intermediate_representation: dict[str, Union[str, Iterable[str]]]
 ) -> str:
     frontmatter = (
         "---\n"
         + "date: "
-        + parsed_input["date"]
+        + intermediate_representation["date"]
         + "\n"
-        + f"tags: {generate_yaml_tags(parsed_input['tags'])}\n"
+        + f"tags: {generate_yaml_tags(intermediate_representation['tags'])}\n"
     )
 
-    if "identity/employee" in parsed_input["tags"]:
+    if "identity/employee" in intermediate_representation["tags"]:
         frontmatter += "draft: true\n"
 
     frontmatter += "---"
@@ -55,5 +57,4 @@ def generate_yaml_frontmatter(
 
 
 def parse_md_to_yaml_frontmatter(input: str) -> str:
-    parsed_input = parse(input)
-    return generate_yaml_frontmatter(parsed_input)
+    return generate_yaml_frontmatter(md_to_intermediate_representation(input))

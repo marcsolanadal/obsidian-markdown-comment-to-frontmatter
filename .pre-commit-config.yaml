@@ -14,7 +14,7 @@ repos:
     rev: 'v1.4.1'
     hooks:
     -   id: mypy
-        exclude: '.*\/test_.*\.py$'
+        exclude: '.*\/.*\_test.py$'
         args: [--strict, --ignore-missing-imports]
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.0.275

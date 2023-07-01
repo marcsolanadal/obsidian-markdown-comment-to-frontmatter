@@ -1,0 +1,36 @@
+# EditorConfig is a file format that helps developers define and maintain consistent
+# coding styles between different editors and IDEs.
+
+# Top-most EditorConfig file.
+root = true
+
+# Set default charset.
+[*]
+charset = utf-8
+
+# Set default end-of-line character as LF (Unix-style).
+[*]
+end_of_line = lf
+
+# Indentation and whitespace settings for Python files.
+[*.py]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Specify the maximum line length for Python files.
+max_line_length = 120
+
+# Ignore specific directories.
+[dist/*, build/*, .venv/*]
+exclude_patterns = __pycache__/
+
+# Set settings for configuration files.
+[*.cfg, *.ini, *.conf]
+indent_style = space
+indent_size = 2
+
+# Set settings for Markdown files.
+[*.md]
+trim_trailing_whitespace = false

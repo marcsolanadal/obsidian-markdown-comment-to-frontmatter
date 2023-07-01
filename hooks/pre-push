@@ -1,2 +1,2 @@
 #!/usr/bin/sh
-poetry run pytest
+poetry run pytest -v
